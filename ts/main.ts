@@ -39,6 +39,16 @@ class Application {
           console.log(this.registers);
         });
         break;
+
+      case "xchg":
+        //@ts-ignore
+        this.registers[destination].xchg(this.registers[source], () => {
+          // @ts-ignore
+          document.querySelector(`#${destination}`).value = this.registers[source].valueHex;
+          // @ts-ignore
+          document.querySelector(`#${source}`).value = this.registers[destination].valueHex;
+        })
+        break;
     
       default:
         break;

@@ -31,4 +31,16 @@ export class Register {
     callback();
   }
 
+  public xchg(otherRegister: Register, callback: Function) {
+    const temporary = this.value;
+    const temporaryHex = this.valueHex;
+    this.value = otherRegister.value;
+    this.storedHex = otherRegister.valueHex;
+
+    otherRegister.value = temporary;
+    otherRegister.storedHex = temporaryHex;
+
+    callback();
+  }
+
 }

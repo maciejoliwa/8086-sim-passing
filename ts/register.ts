@@ -1,3 +1,5 @@
+import { HexDecConverter } from './hex.js';
+
 export type RegisterName = "AX" | "BX" | "CX" | "DX"
 
 export class Register {
@@ -11,6 +13,10 @@ export class Register {
 
   get value(): number {
     return this.storedValue;
+  }
+
+  get valueHex(): string {
+    return HexDecConverter.DecimalToHex(this.storedValue);
   }
 
   public mov(otherRegister: Register, callback: Function) {

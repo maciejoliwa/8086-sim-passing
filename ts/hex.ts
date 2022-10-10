@@ -9,7 +9,7 @@ export class HexDecConverter {
     "F": 15
   }
 
-  static decimalToHexLetters = new Map([
+  static decimalToHexLetters = new Map<number, string>([
     [10, "A"],
     [11, "B"],
     [12, "C"],

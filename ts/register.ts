@@ -5,6 +5,7 @@ export type RegisterName = "AX" | "BX" | "CX" | "DX"
 export class Register {
 
   private storedValue: number = 0;
+  private storedHexValue: string = "0000";
   private name: RegisterName = "AX";
 
   set value(newValue: number) {
@@ -15,14 +16,18 @@ export class Register {
     return this.storedValue;
   }
 
+  set storedHex(newValue: string) {
+    this.storedHexValue = newValue;
+    this.storedValue = HexDecConverter.HexToDecimal(newValue);
+  }
+
   get valueHex(): string {
     return HexDecConverter.DecimalToHex(this.storedValue);
   }
 
   public mov(otherRegister: Register, callback: Function) {
-    const temporaryValueHolder = this.storedValue;
     this.value = otherRegister.value;
-    otherRegister.value = temporaryValueHolder;
+    this.storedHex = otherRegister.valueHex;
     callback();
   }
 

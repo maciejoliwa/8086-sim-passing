@@ -1,13 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="lofi">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
   <title>Document</title>
 </head>
 <body>
-  
+  <div class="container-full">
+    <header class="px-8 bg-base-200 commands w-full flex items-center justify-evenly py-20">
+      <div class="registers">
+        <div class="wrapper">
+          <label class="label" for="">AX: </label>
+          <input value="0" placeholder="Wartość w syst. szesnastkowym" type="text" class="input input-primary" id="ax">
+        </div>
+        <div class="wrapper">
+          <label class="label" for="">BX: </label>
+          <input value="0" type="text" class="input input-primary" placeholder="Wartość w syst. szesnastkowym" id="bx">
+        </div>
+        <div class="wrapper">
+          <label class="label" for="">CX: </label>
+          <input value="0" type="text" class="input input-primary" placeholder="Wartość w syst. szesnastkowym" id="cx">
+        </div>
+        <div class="wrapper">
+          <label class="label" for="">DX: </label>
+          <input value="0" type="text" class="input input-primary" placeholder="Wartość w syst. szesnastkowym" id="dx">
+        </div>
+        <button class="save-data btn btn-secondary mt-4">
+          Zapisz Dane
+        </button>
+      </div>
+
+      <form class="command-form">
+        <div class="command-wrapper flex items-center flex-col justify-center">
+          <select class="select select-primary" name="command" id="command-select">
+            <option value="mov" selected>MOV</option>
+            <option value="xchg">XCHG</option>
+          </select>
+          <div class="registers flex items-center justify-center gap-4">
+
+            <div class="register-wrapper">
+              <label for="destination" class="label">Do:</label>
+              <select name="destination" class="destination select select-secondary" id="destination">
+                <option value="ax" selected>AX</option>
+                <option value="bx">BX</option>
+                <option value="cx">CX</option>
+                <option value="dx">DX</option>
+              </select>
+            
+            </div>
+            <div class="register-wrapper">
+              <label for="source" class="label">Źródło:</label>
+              <select name="source" class="source select select-secondary" id="source">
+                <option value="ax">AX</option>
+                <option value="bx" selected>BX</option>
+                <option value="cx">CX</option>
+                <option value="dx">DX</option>
+              </select>
+            
+            </div>
+        </div>
+        </div>
+        <input type="submit" class="btn text-black hover:text-white btn-primary mt-2" value="Wykonaj">
+      </form>
+    </header>
+  </div>
   <script type="module" src="./js/main.js"></script>
 </body>
 </html>

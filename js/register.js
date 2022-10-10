@@ -1,5 +1,7 @@
+import { HexDecConverter } from './hex.js';
 export class Register {
     storedValue = 0;
+    storedHexValue = "0000";
     name = "AX";
     set value(newValue) {
         this.storedValue = newValue;
@@ -7,10 +9,16 @@ export class Register {
     get value() {
         return this.storedValue;
     }
+    set storedHex(newValue) {
+        this.storedHexValue = newValue;
+        this.storedValue = HexDecConverter.HexToDecimal(newValue);
+    }
+    get valueHex() {
+        return HexDecConverter.DecimalToHex(this.storedValue);
+    }
     mov(otherRegister, callback) {
-        const temporaryValueHolder = this.storedValue;
         this.value = otherRegister.value;
-        otherRegister.value = temporaryValueHolder;
+        this.storedHex = otherRegister.valueHex;
         callback();
     }
 }

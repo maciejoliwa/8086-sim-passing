@@ -18,8 +18,8 @@ export class Register {
         this.hexValue = HexDecConverter.DecimalToHex(0);
     }
     mov(otherRegister, callback) {
-        otherRegister.registerValue = this.value;
-        this.registerValue = 0;
+        this.registerValue = otherRegister.decimalValue;
+        otherRegister.registerValue = 0;
         callback();
     }
     xchg(otherRegister, callback) {

@@ -16,7 +16,6 @@ export class HexDecConverter {
         [15, "F"]
     ]);
     static HexToDecimal(hex) {
-        console.log(hex);
         return Number.parseInt(hex, 16);
     }
     static DecimalToHex(dec) {

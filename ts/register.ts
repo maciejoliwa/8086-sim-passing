@@ -4,43 +4,40 @@ export type RegisterName = "AX" | "BX" | "CX" | "DX"
 
 export class Register {
 
-  private storedValue: number = 0;
-  private storedHexValue: string = "0000";
-  private name: RegisterName = "AX";
+    private value: number;
+    private hexValue: string;
 
-  set value(newValue: number) {
-    this.storedValue = newValue;
-  }
+    get decimalValue(): number {
+        return this.value;
+    }
 
-  get value(): number {
-    return this.storedValue;
-  }
+    get hexadecimalValue(): string {
+        return this.hexValue;
+    }
 
-  set storedHex(newValue: string) {
-    this.storedHexValue = newValue;
-    this.storedValue = HexDecConverter.HexToDecimal(newValue);
-  }
+    set registerValue(newValue: number) {
+        this.value = newValue;
+        this.hexValue = HexDecConverter.DecimalToHex(newValue);
+        console.log(this);
+    }
 
-  get valueHex(): string {
-    return HexDecConverter.DecimalToHex(this.storedValue);
-  }
+    constructor() {
+        this.value = 0;
+        this.hexValue = HexDecConverter.DecimalToHex(0);
+    }
 
-  public mov(otherRegister: Register, callback: Function) {
-    this.value = otherRegister.value;
-    this.storedHex = otherRegister.valueHex;
-    callback();
-  }
+    public mov(otherRegister: Register, callback: Function) {
+        otherRegister.registerValue = this.value;
+        this.registerValue = 0;
+        callback();
+    }
 
-  public xchg(otherRegister: Register, callback: Function) {
-    const temporary = this.value;
-    const temporaryHex = this.valueHex;
-    this.value = otherRegister.value;
-    this.storedHex = otherRegister.valueHex;
+    public xchg(otherRegister: Register, callback: Function) {
+        const temp = this.value;
+        this.registerValue = otherRegister.decimalValue;
+        otherRegister.registerValue = temp;
 
-    otherRegister.value = temporary;
-    otherRegister.storedHex = temporaryHex;
-
-    callback();
-  }
+        callback();
+    }
 
 }

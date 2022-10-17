@@ -1,3 +1,4 @@
+import { HexDecConverter } from './hex.js';
 import { Register } from './register.js';
 const commandForm = document.querySelector('.command-form');
 const saveDataButton = document.querySelector('.save-data');
@@ -13,10 +14,10 @@ class Application {
         const bxValue = document.querySelector('#bx').value;
         const cxValue = document.querySelector('#cx').value;
         const dxValue = document.querySelector('#dx').value;
-        this.registers.ax.storedHex = axValue;
-        this.registers.bx.storedHex = bxValue;
-        this.registers.cx.storedHex = cxValue;
-        this.registers.dx.storedHex = dxValue;
+        this.registers.ax.registerValue = HexDecConverter.HexToDecimal(axValue);
+        this.registers.bx.registerValue = HexDecConverter.HexToDecimal(bxValue);
+        this.registers.cx.registerValue = HexDecConverter.HexToDecimal(cxValue);
+        this.registers.dx.registerValue = HexDecConverter.HexToDecimal(dxValue);
     }
     executeCommand() {
         const chosenCommand = document.querySelector('#command-select').value;
@@ -27,19 +28,19 @@ class Application {
                 // @ts-ignore
                 this.registers[destination].mov(this.registers[source], () => {
                     // @ts-ignore
-                    document.querySelector(`#${destination}`).value = this.registers[source].valueHex;
-                    console.log(this.registers);
+                    document.querySelector(`#${destination}`).value = this.registers[destination].hexadecimalValue;
+                    // @ts-ignore
+                    document.querySelector(`#${source}`).value = this.registers[source].hexadecimalValue;
                 });
                 break;
-            case "xchg":
-                //@ts-ignore
+            case 'xchg':
+                // @ts-ignore
                 this.registers[destination].xchg(this.registers[source], () => {
                     // @ts-ignore
-                    document.querySelector(`#${destination}`).value = this.registers[source].valueHex;
+                    document.querySelector(`#${destination}`).value = this.registers[destination].hexadecimalValue;
                     // @ts-ignore
-                    document.querySelector(`#${source}`).value = this.registers[destination].valueHex;
+                    document.querySelector(`#${source}`).value = this.registers[source].hexadecimalValue;
                 });
-                break;
             default:
                 break;
         }

@@ -19,10 +19,10 @@ class Application {
     const cxValue =  (document.querySelector('#cx') as HTMLSelectElement).value;
     const dxValue =  (document.querySelector('#dx') as HTMLSelectElement).value;
 
-    this.registers.ax.storedHex = axValue;
-    this.registers.bx.storedHex = bxValue;
-    this.registers.cx.storedHex = cxValue;
-    this.registers.dx.storedHex = dxValue;
+    this.registers.ax.registerValue = HexDecConverter.HexToDecimal(axValue);
+    this.registers.bx.registerValue = HexDecConverter.HexToDecimal(bxValue);
+    this.registers.cx.registerValue = HexDecConverter.HexToDecimal(cxValue);
+    this.registers.dx.registerValue = HexDecConverter.HexToDecimal(dxValue);
   }
 
   executeCommand() {
@@ -35,21 +35,21 @@ class Application {
         // @ts-ignore
         this.registers[destination].mov(this.registers[source], () => {
           // @ts-ignore
-          document.querySelector(`#${destination}`).value = this.registers[source].valueHex;
-          console.log(this.registers);
+          document.querySelector(`#${destination}`).value = this.registers[destination].hexadecimalValue;
+          // @ts-ignore
+          document.querySelector(`#${source}`).value = this.registers[source].hexadecimalValue;
         });
         break;
 
-      case "xchg":
-        //@ts-ignore
+
+    case 'xchg':
+        // @ts-ignore
         this.registers[destination].xchg(this.registers[source], () => {
-          // @ts-ignore
-          document.querySelector(`#${destination}`).value = this.registers[source].valueHex;
-          // @ts-ignore
-          document.querySelector(`#${source}`).value = this.registers[destination].valueHex;
+            // @ts-ignore
+            document.querySelector(`#${destination}`).value = this.registers[destination].hexadecimalValue;
+            // @ts-ignore
+            document.querySelector(`#${source}`).value = this.registers[source].hexadecimalValue;
         })
-        break;
-    
       default:
         break;
     }

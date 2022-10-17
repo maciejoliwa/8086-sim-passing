@@ -19,7 +19,6 @@ export class HexDecConverter {
   ]);
 
   public static HexToDecimal(hex: string): number {
-    console.log(hex);
     return Number.parseInt(hex, 16);
   } 
 

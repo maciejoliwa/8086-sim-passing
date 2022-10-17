@@ -1,33 +1,31 @@
 import { HexDecConverter } from './hex.js';
 export class Register {
-    storedValue = 0;
-    storedHexValue = "0000";
-    name = "AX";
-    set value(newValue) {
-        this.storedValue = newValue;
+    value;
+    hexValue;
+    get decimalValue() {
+        return this.value;
     }
-    get value() {
-        return this.storedValue;
+    get hexadecimalValue() {
+        return this.hexValue;
     }
-    set storedHex(newValue) {
-        this.storedHexValue = newValue;
-        this.storedValue = HexDecConverter.HexToDecimal(newValue);
+    set registerValue(newValue) {
+        this.value = newValue;
+        this.hexValue = HexDecConverter.DecimalToHex(newValue);
+        console.log(this);
     }
-    get valueHex() {
-        return HexDecConverter.DecimalToHex(this.storedValue);
+    constructor() {
+        this.value = 0;
+        this.hexValue = HexDecConverter.DecimalToHex(0);
     }
     mov(otherRegister, callback) {
-        this.value = otherRegister.value;
-        this.storedHex = otherRegister.valueHex;
+        otherRegister.registerValue = this.value;
+        this.registerValue = 0;
         callback();
     }
     xchg(otherRegister, callback) {
-        const temporary = this.value;
-        const temporaryHex = this.valueHex;
-        this.value = otherRegister.value;
-        this.storedHex = otherRegister.valueHex;
-        otherRegister.value = temporary;
-        otherRegister.storedHex = temporaryHex;
+        const temp = this.value;
+        this.registerValue = otherRegister.decimalValue;
+        otherRegister.registerValue = temp;
         callback();
     }
 }

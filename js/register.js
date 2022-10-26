@@ -11,14 +11,18 @@ export class Register {
     set registerValue(newValue) {
         this.value = newValue;
         this.hexValue = HexDecConverter.DecimalToHex(newValue);
-        console.log(this);
     }
     constructor() {
         this.value = 0;
         this.hexValue = HexDecConverter.DecimalToHex(0);
     }
     mov(otherRegister, callback) {
-        this.registerValue = otherRegister.decimalValue;
+        if (otherRegister instanceof Register) {
+            this.registerValue = otherRegister.decimalValue;
+        }
+        else {
+            this.registerValue = otherRegister;
+        }
         callback();
     }
     xchg(otherRegister, callback) {

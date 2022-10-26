@@ -17,6 +17,12 @@ export class CommandParser {
                         document.querySelector(`#${command.parameters.right}`).value = this.registers[command.parameters.right].hexadecimalValue;
                     });
                 }
+                else {
+                    this.registers[command.parameters.left].mov(command.parameters.right, () => {
+                        // @ts-ignore
+                        document.querySelector(`#${command.parameters.left}`).value = this.registers[command.parameters.left].hexadecimalValue;
+                    });
+                }
                 break;
             default:
                 break;

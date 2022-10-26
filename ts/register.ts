@@ -18,7 +18,6 @@ export class Register {
     set registerValue(newValue: number) {
         this.value = newValue;
         this.hexValue = HexDecConverter.DecimalToHex(newValue);
-        console.log(this);
     }
 
     constructor() {
@@ -26,8 +25,12 @@ export class Register {
         this.hexValue = HexDecConverter.DecimalToHex(0);
     }
 
-    public mov(otherRegister: Register, callback: Function) {
-        this.registerValue = otherRegister.decimalValue;
+    public mov(otherRegister: Register | number, callback: Function) {
+        if (otherRegister instanceof Register) {
+            this.registerValue = otherRegister.decimalValue;
+        } else {
+            this.registerValue = otherRegister;
+        }
         callback();
     }
 

@@ -58,7 +58,6 @@ class Application {
 
   constructor() {
     this.commandParser = new CommandParser(this.registers);
-    console.log(this)
     commandForm?.addEventListener('submit', (e) => {
       e.preventDefault();
       this.executeCommand();

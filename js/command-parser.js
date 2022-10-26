@@ -67,6 +67,8 @@ export class CommandParser {
                 // @ts-ignore
                 const value = this.form[0].value;
                 this.executeCommand(this.parseCommand(value));
+                // @ts-ignore
+                this.form[0].value = "";
             });
         }
     }

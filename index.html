@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="lofi">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +9,7 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="container-full">
+  <div class="container-full flex justify-center w-screen items-center flex-col">
     <header class="px-8 bg-base-200 commands w-full flex items-center justify-evenly py-20">
       <div class="registers">
         <div class="wrapper">
@@ -28,9 +28,6 @@
           <label class="label" for="">DX: </label>
           <input value="0" type="text" class="input input-primary" placeholder="Wartość w syst. szesnastkowym" id="dx">
         </div>
-        <button class="save-data btn btn-secondary mt-4">
-          Zapisz Dane
-        </button>
       </div>
 
       <form class="command-form">
@@ -63,7 +60,7 @@
             </div>
         </div>
         </div>
-        <input type="submit" class="btn text-black hover:text-white btn-primary mt-2" value="Wykonaj">
+        <input type="submit" class="btn text-white hover:text-white btn-primary mt-2" value="Wykonaj">
       </form>
     </header>
   </div>

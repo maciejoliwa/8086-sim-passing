@@ -28,7 +28,6 @@ export class Register {
 
     public mov(otherRegister: Register, callback: Function) {
         this.registerValue = otherRegister.decimalValue;
-        otherRegister.registerValue = 0;
         callback();
     }
 

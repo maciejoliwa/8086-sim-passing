@@ -1,7 +1,6 @@
 import { HexDecConverter } from './hex.js';
 import { Register } from './register.js';
 const commandForm = document.querySelector('.command-form');
-const saveDataButton = document.querySelector('.save-data');
 class Application {
     registers = {
         "ax": new Register(),
@@ -50,7 +49,10 @@ class Application {
             e.preventDefault();
             this.executeCommand();
         });
-        saveDataButton?.addEventListener('click', this.saveData.bind(this));
+        document.querySelector('#ax')?.addEventListener('keyup', this.saveData.bind(this));
+        document.querySelector('#bx')?.addEventListener('keyup', this.saveData.bind(this));
+        document.querySelector('#cx')?.addEventListener('keyup', this.saveData.bind(this));
+        document.querySelector('#dx')?.addEventListener('keyup', this.saveData.bind(this));
     }
 }
 new Application();

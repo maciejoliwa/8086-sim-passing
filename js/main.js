@@ -1,13 +1,15 @@
 import { HexDecConverter } from './hex.js';
 import { Register } from './register.js';
+import { CommandParser } from './command-parser.js';
 const commandForm = document.querySelector('.command-form');
 class Application {
     registers = {
-        "ax": new Register(),
-        "bx": new Register(),
-        "cx": new Register(),
-        "dx": new Register()
+        ax: new Register(),
+        bx: new Register(),
+        cx: new Register(),
+        dx: new Register()
     };
+    commandParser;
     saveData() {
         const axValue = document.querySelector('#ax').value;
         const bxValue = document.querySelector('#bx').value;
@@ -45,6 +47,8 @@ class Application {
         }
     }
     constructor() {
+        this.commandParser = new CommandParser(this.registers);
+        console.log(this);
         commandForm?.addEventListener('submit', (e) => {
             e.preventDefault();
             this.executeCommand();

@@ -1,4 +1,7 @@
 import { Register } from './register.js';
+import { CommandsHistory } from './history.js';
+
+const history = new CommandsHistory();
 
 enum CommandType {
     MOV,
@@ -11,6 +14,7 @@ type CommandParameters = {
 }
 
 type Command = {
+    str: string;
     type: CommandType;
     parameters: CommandParameters;
 }
@@ -38,8 +42,23 @@ export class CommandParser {
                     this.registers[command.parameters.left].mov(command.parameters.right, () => {
                         // @ts-ignore
                         document.querySelector(`#${command.parameters.left}`).value = this.registers[command.parameters.left].hexadecimalValue;
-                      });
+                        history.addCommand("> " + command.str);
+                    });
                 }
+                break;
+
+            case CommandType.XCHG:
+                if (typeof command.parameters.right !== 'string') {
+                    break;
+                }
+
+                this.registers[command.parameters.left].xchg(this.registers[command.parameters.right], () => {
+                    // @ts-ignore
+                    document.querySelector(`#${command.parameters.left}`).value = this.registers[command.parameters.left].hexadecimalValue;
+                    // @ts-ignore
+                    document.querySelector(`#${command.parameters.right}`).value = this.registers[command.parameters.right].hexadecimalValue;
+                    history.addCommand("> " + command.str);
+                });
                 break;
         
             default:
@@ -74,6 +93,7 @@ export class CommandParser {
         }
 
         return {
+            str: input,
             type: command,
             parameters: {
                 left: leftsideoftherightside,
